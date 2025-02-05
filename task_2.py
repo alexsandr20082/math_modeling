@@ -20,4 +20,5 @@ sol = odeint(diff_func,w,t)
 
 	
 plt.plot(t, sol[:, 0], 'b', label='theta(t)')
+plt.plot(t, sol[:, 1], 'r', label='theta(t)')
 plt.savefig('fig_4.png')
