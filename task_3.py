@@ -4,29 +4,23 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
 frames = 200
-t = np.linspace(0,5,frames)
-def move_func(z, t): 
-    x, vx, y, vy = z
-    
-    dx_dt = vx
-    dvx_dt = 10-0.1*vx
-    dy_dt = vy
-    dvy_dt = -9.8 - 0.1*vy
+t = np.linspace(0, 100, 1000)
+def move_func(y, t): 
+    A, X, Y = y
+    dA_dt = - (k1 + k2) * A
+    dX_dt = k1 * A
+    dY_dt = k2 * A
+    return dA_dt, dX_dt,dY_dt
 
-    return dx_dt, dvx_dt, dy_dt, dvy_dt
-g = 9.8
-v = 15
-u = 0.1
-alha = 30 * np.pi / 180
+k1 = 0.1  
+k2 = 0.05  
+A0 = 10.0
+y0 = [A0, 0.0, 0.0]
 
-x0 = 0
-vx0 = v * np.cos(alha)
-y0= 0
-vy0 = v * np.sin(alha)
-
-z0 = x0, vx0, y0, vy0
-
-sol = odeint(move_func, z0, t)
+sol = odeint(move_func, y0, t)
+A = sol[:, 0]
+X = sol[:, 1]
+Y = sol[:, 2]
 
 fig, ax = plt.subplots()
  
